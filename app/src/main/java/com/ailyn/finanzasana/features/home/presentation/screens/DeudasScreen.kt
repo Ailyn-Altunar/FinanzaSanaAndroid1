@@ -1,5 +1,5 @@
 package com.ailyn.finanzasana.features.home.presentation.screens
-
+/**
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,16 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ailyn.finanzasana.features.home.domain.model.Deuda
-import com.ailyn.finanzasana.features.home.data.model.CategoriaResponse
-import com.ailyn.finanzasana.features.home.data.model.DeudaRequest
-import com.ailyn.finanzasana.features.home.presentation.viewmodel.DeudasUiState
 import com.ailyn.finanzasana.features.home.presentation.viewmodel.DeudasViewModel
 import java.time.LocalDate
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import com.ailyn.finanzasana.core.sync.ImageUtils
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.asImageBitmap
@@ -446,4 +442,4 @@ fun FormularioNuevaDeuda(
             ) { Text("Guardar Deuda") }
         }
     }
-}
+}**/

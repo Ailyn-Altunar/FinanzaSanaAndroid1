@@ -1,5 +1,5 @@
 package com.ailyn.finanzasana.features.planificador.presentation.screens
-
+/**
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ailyn.finanzasana.features.home.domain.model.Deuda
-import com.ailyn.finanzasana.features.planificador.presentation.viewmodel.PlanificadorUiState
-import com.ailyn.finanzasana.features.planificador.presentation.viewmodel.PlanificadorViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -230,4 +228,4 @@ fun ResumenFilaPlan(label: String, valor: String, valorColor: Color) {
         Text(label, color = Color.White.copy(alpha = 0.7f), fontSize = 14.sp)
         Text(valor, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = valorColor)
     }
-}
+}**/

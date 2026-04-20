@@ -1,7 +1,5 @@
 package com.ailyn.finanzasana.features.admin.presentation.screens
-
-import com.ailyn.finanzasana.features.admin.domain.model.UserAdmin
-
+/**
 data class UserManagementUiState(
     val users: List<UserAdmin> = emptyList(),
     val filteredUsers: List<UserAdmin> = emptyList(),
@@ -13,4 +11,4 @@ data class UserManagementUiState(
     val deleteError: String? = null,
     val errorMessage: String? = null,
     val uiMessage: String? = null
-)
+)**/

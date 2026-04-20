@@ -1,5 +1,5 @@
 package com.ailyn.finanzasana.features.settings.presentation.screens
-
+/**
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ailyn.finanzasana.features.auth.presentation.viewmodel.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -162,4 +161,4 @@ fun SettingsScreen(
             )
         }
     }
-}
+}**/

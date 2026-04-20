@@ -93,4 +93,7 @@ dependencies {
     // GPS Location
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+
 }

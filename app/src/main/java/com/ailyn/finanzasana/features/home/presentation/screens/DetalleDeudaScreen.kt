@@ -1,5 +1,5 @@
 package com.ailyn.finanzasana.features.home.presentation.screens
-
+/**
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -20,11 +20,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ailyn.finanzasana.features.home.presentation.viewmodel.DetalleDeudaUiState
 import com.ailyn.finanzasana.features.home.presentation.viewmodel.DetalleDeudaViewModel
-import com.ailyn.finanzasana.features.home.data.model.DeudaRequest
 import java.time.LocalDate
-import com.ailyn.finanzasana.core.sync.ImageUtils
 import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -481,4 +478,4 @@ fun SeccionCard(titulo: String, contenido: @Composable ColumnScope.() -> Unit) {
             contenido()
         }
     }
-}
+}**/

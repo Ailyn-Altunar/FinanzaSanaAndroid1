@@ -1,5 +1,5 @@
 package com.ailyn.finanzasana.features.admin.presentation.screens
-
+/**
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -166,4 +166,4 @@ fun ActividadCard(usuario: String, accion: String, fecha: String) {
             }
         }
     }
-}
+}**/

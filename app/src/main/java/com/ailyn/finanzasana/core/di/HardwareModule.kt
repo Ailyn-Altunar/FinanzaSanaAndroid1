@@ -1,35 +1,39 @@
-package com.ailyn.finanzasana.core.di
+package com.ailyn.finanzasana.core.hardware.di
 
-import androidx.fragment.app.FragmentActivity
-import com.ailyn.finanzasana.core.hardware.biometric.data.AndroidBiometricManager
-import com.ailyn.finanzasana.core.hardware.biometric.domain.BiometricManager
+import com.ailyn.finanzasana.core.hardware.location.domain.LocationManager
+import com.ailyn.finanzasana.core.hardware.location.data.AndroidLocationManager
+
+import com.ailyn.finanzasana.core.hardware.camera.domain.CameraManager
+import com.ailyn.finanzasana.core.hardware.camera.data.AndroidCameraManager
+
+import com.ailyn.finanzasana.core.hardware.biometric.domain.BiometricAuthenticator
+import com.ailyn.finanzasana.core.hardware.biometric.data.AndroidBiometricAuthenticator
+
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class HardwareModule {
 
     @Binds
-    @ViewModelScoped
-    abstract fun bindBiometricManager(
-        impl: AndroidBiometricManager
-    ): BiometricManager
-}
+    @Singleton
+    abstract fun bindLocationManager(
+        impl: AndroidLocationManager
+    ): LocationManager
 
-@Module
-@InstallIn(ViewModelComponent::class)
-object HardwareProvidesModule {
+    @Binds
+    @Singleton
+    abstract fun bindCameraManager(
+        impl: AndroidCameraManager
+    ): CameraManager
 
-    @Provides
-    @ViewModelScoped
-    fun provideFragmentActivity(): FragmentActivity {
-        throw IllegalStateException(
-            "FragmentActivity must be provided by the screen using @AndroidEntryPoint"
-        )
-    }
+    @Binds
+    @Singleton
+    abstract fun bindBiometricAuthenticator(
+        impl: AndroidBiometricAuthenticator
+    ): BiometricAuthenticator
 }
