@@ -6,6 +6,6 @@ data class UsuarioResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("nombre") val nombre: String,
     @SerializedName("email") val email: String,
-    @SerializedName("idRol") val idRol: Int,
+    @SerializedName("rol") val idRol: Int, // <--- "rol" en JSON, idRol en Android
     @SerializedName("telefono") val telefono: String
 )

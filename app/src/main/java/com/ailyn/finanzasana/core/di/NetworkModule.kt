@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.ailyn.finanzasana.core.session.SessionManager
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,12 +18,25 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideAuthInterceptor(sessionManager: SessionManager): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request().newBuilder()
+            sessionManager.getToken()?.let {
+                request.addHeader("Authorization", "Bearer $it")
+            }
+            chain.proceed(request.build())
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
         return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(logging)
             .build()
     }
@@ -30,7 +45,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl("http://192.168.100.19:8080/") // cámbiala
+            .baseUrl("http://192.168.0.34:8080/") // cámbiala
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

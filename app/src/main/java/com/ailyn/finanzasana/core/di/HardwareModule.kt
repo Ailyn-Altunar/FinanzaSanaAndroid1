@@ -1,4 +1,4 @@
-package com.ailyn.finanzasana.core.hardware.di
+package com.ailyn.finanzasana.core.di
 
 import com.ailyn.finanzasana.core.hardware.location.domain.LocationManager
 import com.ailyn.finanzasana.core.hardware.location.data.AndroidLocationManager
@@ -8,6 +8,8 @@ import com.ailyn.finanzasana.core.hardware.camera.data.AndroidCameraManager
 
 import com.ailyn.finanzasana.core.hardware.biometric.domain.BiometricAuthenticator
 import com.ailyn.finanzasana.core.hardware.biometric.data.AndroidBiometricAuthenticator
+import com.ailyn.finanzasana.core.network.AndroidNetworkManager
+import com.ailyn.finanzasana.core.network.NetworkManager
 
 import dagger.Binds
 import dagger.Module
@@ -36,4 +38,11 @@ abstract class HardwareModule {
     abstract fun bindBiometricAuthenticator(
         impl: AndroidBiometricAuthenticator
     ): BiometricAuthenticator
+
+
+    @Binds
+    @Singleton
+    abstract fun bindNetworkManager(
+        impl: AndroidNetworkManager
+    ): NetworkManager
 }
