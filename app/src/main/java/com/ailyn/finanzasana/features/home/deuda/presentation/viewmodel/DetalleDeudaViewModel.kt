@@ -78,32 +78,36 @@ class DetalleDeudaViewModel @Inject constructor(
 
     fun liquidarDeuda() {
         val currentDeuda = _uiState.value.deuda ?: return
+        val montoALiquidar = currentDeuda.saldoActual
         
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
+            // 1. ACTUALIZACIÓN LOCAL INMEDIATA (Optimista)
+            _uiState.update { state ->
+                val d = state.deuda ?: return@update state
+                val abonoLiquidacion = com.ailyn.finanzasana.features.home.deuda.domain.entities.Abono(
+                    id = -1,
+                    monto = montoALiquidar,
+                    fecha = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+                )
+                state.copy(
+                    deuda = d.copy(
+                        saldoActual = 0.0,
+                        porcentajePagado = 100.0,
+                        abonos = d.abonos + abonoLiquidacion
+                    ),
+                    isAbonoSuccess = true
+                )
+            }
+
             try {
-                // LLAMADA A LA API
+                // 2. LLAMADA A LA API EN SEGUNDO PLANO
                 liquidarDeudaUseCase(currentDeuda.id ?: 0)
                 
-                // ACTUALIZACIÓN LOCAL INMEDIATA PARA FEEDBACK VISUAL
-                _uiState.update { state ->
-                    val d = state.deuda ?: return@update state
-                    state.copy(
-                        deuda = d.copy(
-                            saldoActual = 0.0,
-                            porcentajePagado = 100.0
-                            // Mantenemos los abonos que ya tenemos hasta que lleguen los nuevos
-                        ),
-                        isLoading = false,
-                        isAbonoSuccess = true
-                    )
-                }
-                
-                // REFRESCAR HISTORIAL DE ABONOS DESDE EL SERVIDOR
+                // 3. REFRESCAR DATOS REALES
                 currentDeuda.id?.let { cargarAbonos(it) }
-
             } catch (e: Exception) {
-                _uiState.update { it.copy(isLoading = false, errorMessage = e.message) }
+                // Si falla, revertimos o informamos
+                _uiState.update { it.copy(errorMessage = "Error al liquidar en servidor: ${e.message}") }
             }
         }
     }

@@ -164,11 +164,6 @@ class SolicitudPrestamoViewModel @Inject constructor(
             ok = false
         }
 
-        if (s.latitud == null || s.longitud == null) {
-            _uiState.update { it.copy(errorUbicacion = "Debe obtener la ubicación") }
-            ok = false
-        }
-
         return ok
     }
 

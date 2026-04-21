@@ -45,6 +45,7 @@ fun DetalleDeudaScreen(
         viewModel.setDeuda(deuda)
     }
 
+    // Usar el estado del ViewModel si existe, si no, los datos iniciales
     val currentDeuda = state.deuda ?: deuda
 
     Scaffold(

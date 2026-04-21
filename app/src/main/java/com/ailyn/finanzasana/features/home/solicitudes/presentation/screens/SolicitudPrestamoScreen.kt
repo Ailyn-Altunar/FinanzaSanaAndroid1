@@ -307,7 +307,7 @@ fun SolicitudPrestamoScreen(
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
-                    text = state.direccion ?: "Obtener ubicación actual",
+                    text = state.direccion ?: "Obtener ubicación actual (Opcional)",
                     color = Color(0xFF4CAF50),
                     fontSize = 12.sp,
                     lineHeight = 16.sp

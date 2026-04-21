@@ -143,17 +143,24 @@ fun ItemSolicitudNueva(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = solicitud.nombreUsuario, 
-                fontWeight = FontWeight.Bold, 
-                fontSize = 18.sp,
-                color = Color.Black
-            )
+            Column {
+                Text(
+                    text = solicitud.nombreUsuario, 
+                    fontWeight = FontWeight.Bold, 
+                    fontSize = 18.sp,
+                    color = Color.Black
+                )
+                Text(
+                    text = solicitud.nombreEmpresa,
+                    fontSize = 14.sp,
+                    color = Color.Gray
+                )
+            }
             Text(
                 text = format.format(solicitud.montoSolicitado), 
                 fontWeight = FontWeight.Bold, 
                 fontSize = 18.sp, 
-                color = Color(0xFF2D5AF0) // Azul de la imagen
+                color = Color(0xFF2D5AF0)
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -200,6 +207,11 @@ fun ItemHistorial(solicitud: SolicitudAdmin) {
                 fontWeight = FontWeight.Bold, 
                 fontSize = 17.sp,
                 color = Color.Black
+            )
+            Text(
+                text = solicitud.nombreEmpresa,
+                fontSize = 13.sp,
+                color = Color.Gray
             )
             Text(
                 text = format.format(solicitud.montoSolicitado), 

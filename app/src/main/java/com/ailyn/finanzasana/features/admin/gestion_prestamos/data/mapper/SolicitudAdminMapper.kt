@@ -4,8 +4,9 @@ import com.ailyn.finanzasana.features.admin.gestion_prestamos.data.models.Solici
 import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.entities.SolicitudAdmin
 
 fun SolicitudAdminResponse.toDomain() = SolicitudAdmin(
-    id = id ?: 0,
+    id = id,
     nombreUsuario = nombreUsuario,
+    nombreEmpresa = nombreEmpresa,
     montoSolicitado = montoSolicitado,
     estado = estado
 )

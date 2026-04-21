@@ -2,7 +2,9 @@ package com.ailyn.finanzasana.features.admin.gestion_prestamos.presentation.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.repositories.PrestamosAdminRepository
+import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.usecases.AprobarSolicitudUseCase
+import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.usecases.GetSolicitudesAdminUseCase
+import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.usecases.RechazarSolicitudUseCase
 import com.ailyn.finanzasana.features.admin.gestion_prestamos.presentation.screens.GestionPrestamosUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GestionPrestamosViewModel @Inject constructor(
-    private val repository: PrestamosAdminRepository
+    private val getSolicitudesAdminUseCase: GetSolicitudesAdminUseCase,
+    private val aprobarSolicitudUseCase: AprobarSolicitudUseCase,
+    private val rechazarSolicitudUseCase: RechazarSolicitudUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GestionPrestamosUiState())
@@ -28,8 +32,8 @@ class GestionPrestamosViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                val pendientes = repository.getSolicitudesPendientes()
-                val historial = repository.getHistorialSolicitudes()
+                val pendientes = getSolicitudesAdminUseCase.getPendientes()
+                val historial = getSolicitudesAdminUseCase.getHistorial()
                 _uiState.update { 
                     it.copy(isLoading = false, pendientes = pendientes, historial = historial) 
                 }
@@ -42,7 +46,7 @@ class GestionPrestamosViewModel @Inject constructor(
     fun aprobarSolicitud(id: Int) {
         viewModelScope.launch {
             try {
-                repository.aprobarSolicitud(id)
+                aprobarSolicitudUseCase(id)
                 cargarDatos()
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.message) }
@@ -53,7 +57,7 @@ class GestionPrestamosViewModel @Inject constructor(
     fun rechazarSolicitud(id: Int) {
         viewModelScope.launch {
             try {
-                repository.rechazarSolicitud(id)
+                rechazarSolicitudUseCase(id)
                 cargarDatos()
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.message) }
