@@ -263,9 +263,9 @@ fun SolicitudPrestamoScreen(
                     .background(lightGray, RoundedCornerShape(12.dp))
                     .border(1.dp, Color.LightGray, RoundedCornerShape(12.dp))
                     .clickable {
-                        viewModel.solicitarAperturaCamara(
-                            onLaunchCamera = { cameraLauncher.launch() },
-                            onAskPermission = { cameraPermissionLauncher.launch(Manifest.permission.CAMERA) }
+                        viewModel.intentarTomarFoto(
+                            onAbrirCamara = { cameraLauncher.launch() },
+                            onPedirPermiso = { cameraPermissionLauncher.launch(Manifest.permission.CAMERA) }
                         )
                     },
                 contentAlignment = Alignment.Center

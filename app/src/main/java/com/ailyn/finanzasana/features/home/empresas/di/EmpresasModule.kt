@@ -4,6 +4,7 @@ package com.ailyn.finanzasana.features.home.empresas.di
 import com.ailyn.finanzasana.features.home.empresas.data.datasource.api.EmpresasApi
 import com.ailyn.finanzasana.features.home.empresas.data.repositories.EmpresasRepositoryImpl
 import com.ailyn.finanzasana.features.home.empresas.domain.repositories.EmpresasRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,15 +14,18 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object EmpresasModule {
+abstract class EmpresasModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideEmpresasApi(retrofit: Retrofit): EmpresasApi =
-        retrofit.create(EmpresasApi::class.java)
+    abstract fun bindEmpresasRepository(
+        impl: EmpresasRepositoryImpl
+    ): EmpresasRepository
 
-    @Provides
-    @Singleton
-    fun provideEmpresasRepository(api: EmpresasApi): EmpresasRepository =
-        EmpresasRepositoryImpl(api)
+    companion object {
+        @Provides
+        @Singleton
+        fun provideEmpresasApi(retrofit: Retrofit): EmpresasApi =
+            retrofit.create(EmpresasApi::class.java)
+    }
 }

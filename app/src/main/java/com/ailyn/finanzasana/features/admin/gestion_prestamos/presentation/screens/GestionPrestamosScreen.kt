@@ -7,8 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Assignment
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,6 +29,7 @@ import java.util.*
 @Composable
 fun GestionPrestamosScreen(
     viewModel: GestionPrestamosViewModel,
+    onNavigateToDashboard: () -> Unit,
     onBack: () -> Unit,
     onLogout: () -> Unit
 ) {
@@ -49,8 +50,12 @@ fun GestionPrestamosScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Ir a ajustes */ }) {
-                        Icon(Icons.Default.Settings, contentDescription = "Ajustes", tint = Color.White)
+                    IconButton(onClick = onNavigateToDashboard) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Assignment,
+                            contentDescription = "Dashboard",
+                            tint = Color.White
+                        )
                     }
                     IconButton(onClick = onLogout) {
                         Icon(Icons.Default.ExitToApp, contentDescription = "Cerrar Sesión", tint = Color.White)

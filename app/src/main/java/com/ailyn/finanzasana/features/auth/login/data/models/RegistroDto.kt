@@ -9,3 +9,11 @@ data class UsuarioRequest(
     @SerializedName("idRol") val idRol: Int,
     @SerializedName("telefono") val telefono: String
 )
+
+data class UsuarioResponse(
+    @SerializedName("id") val id: Int,
+    @SerializedName("nombre") val nombre: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("rol") val idRol: Int,
+    @SerializedName("telefono") val telefono: String
+)

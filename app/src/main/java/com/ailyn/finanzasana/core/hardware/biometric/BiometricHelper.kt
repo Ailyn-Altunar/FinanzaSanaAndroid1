@@ -1,4 +1,4 @@
-package com.ailyn.finanzasana.core.hardware.biometric.data
+package com.ailyn.finanzasana.core.hardware.biometric
 
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -6,8 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import com.ailyn.finanzasana.core.hardware.biometric.domain.BiometricAuthenticator
 import javax.inject.Inject
 
-class AndroidBiometricAuthenticator @Inject constructor() : BiometricAuthenticator {
-
+class BiometricHelper @Inject constructor() : BiometricAuthenticator {
     override fun authenticate(
         activity: FragmentActivity,
         title: String,

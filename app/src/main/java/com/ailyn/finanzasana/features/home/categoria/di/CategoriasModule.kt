@@ -3,6 +3,7 @@ package com.ailyn.finanzasana.features.home.categoria.di
 import com.ailyn.finanzasana.features.home.categoria.data.datasource.api.CategoriasApi
 import com.ailyn.finanzasana.features.home.categoria.data.repositories.CategoriasRepositoryImpl
 import com.ailyn.finanzasana.features.home.categoria.domain.repositories.CategoriasRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,15 +13,18 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CategoriasModule {
+abstract class CategoriasModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideCategoriasApi(retrofit: Retrofit): CategoriasApi =
-        retrofit.create(CategoriasApi::class.java)
+    abstract fun bindCategoriasRepository(
+        impl: CategoriasRepositoryImpl
+    ): CategoriasRepository
 
-    @Provides
-    @Singleton
-    fun provideCategoriasRepository(api: CategoriasApi): CategoriasRepository =
-        CategoriasRepositoryImpl(api)
+    companion object {
+        @Provides
+        @Singleton
+        fun provideCategoriasApi(retrofit: Retrofit): CategoriasApi =
+            retrofit.create(CategoriasApi::class.java)
+    }
 }

@@ -76,13 +76,16 @@ class SolicitudPrestamoViewModel @Inject constructor(
     }
 
     // ---------------------------
-    // FOTO
+    // FOTO (Hardware)
     // ---------------------------
-    fun solicitarAperturaCamara(onLaunchCamera: () -> Unit, onAskPermission: () -> Unit) {
+    fun intentarTomarFoto(
+        onAbrirCamara: () -> Unit,
+        onPedirPermiso: () -> Unit
+    ) {
         if (cameraManager.tienePermisoCamara()) {
-            onLaunchCamera()
+            onAbrirCamara()
         } else {
-            onAskPermission()
+            onPedirPermiso()
         }
     }
 

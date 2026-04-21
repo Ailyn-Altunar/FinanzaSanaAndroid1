@@ -15,6 +15,12 @@ data class AdminHome(val idUsuario: Int)
 data class GestionPrestamos(val idUsuario: Int)
 
 @Serializable
+data class Dashboard(val idUsuario: Int)
+
+@Serializable
+object DirectorioUsuarios
+
+@Serializable
 data class Solicitudes(val idUsuario: Int)
 
 @Serializable

@@ -23,6 +23,10 @@ import com.ailyn.finanzasana.features.admin.gestion_prestamos.presentation.viewm
 import com.ailyn.finanzasana.core.session.SessionManager
 import androidx.compose.ui.platform.LocalContext
 
+import com.ailyn.finanzasana.features.admin.usuarios.presentation.screens.DirectorioUsuariosScreen
+import com.ailyn.finanzasana.features.admin.dashboard.presentation.screens.DashboardScreen
+import com.ailyn.finanzasana.features.admin.dashboard.presentation.viewmodel.DashboardViewModel
+
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
@@ -82,6 +86,9 @@ fun AppNavGraph(
             val viewModel: GestionPrestamosViewModel = hiltViewModel()
             GestionPrestamosScreen(
                 viewModel = viewModel,
+                onNavigateToDashboard = {
+                    navController.navigate(Dashboard(idUsuario = sessionManager.getUserId()))
+                },
                 onBack = { /* Opcional: Cerrar app o mostrar diálogo */ },
                 onLogout = {
                     sessionManager.clearSession()
@@ -89,6 +96,21 @@ fun AppNavGraph(
                         popUpTo(0)
                     }
                 }
+            )
+        }
+
+        composable<Dashboard> {
+            DashboardScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToUsuarios = {
+                    navController.navigate(DirectorioUsuarios)
+                }
+            )
+        }
+
+        composable<DirectorioUsuarios> {
+            DirectorioUsuariosScreen(
+                onBack = { navController.popBackStack() }
             )
         }
 
