@@ -20,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.ailyn.finanzasana.features.admin.gestion_prestamos.domain.entities.SolicitudAdmin
 import com.ailyn.finanzasana.features.admin.gestion_prestamos.presentation.viewmodel.GestionPrestamosViewModel
 import java.text.NumberFormat
@@ -34,10 +37,15 @@ fun GestionPrestamosScreen(
     onLogout: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    // REFRESCAR AL ENTRAR
-    LaunchedEffect(Unit) {
-        viewModel.cargarDatos()
+    LaunchedEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.cargarDatos()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
     }
 
     Scaffold(
@@ -73,7 +81,6 @@ fun GestionPrestamosScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // SECCIÓN: NUEVAS SOLICITUDES
             item {
                 Text(
                     text = "NUEVAS SOLICITUDES",
@@ -106,7 +113,6 @@ fun GestionPrestamosScreen(
                 }
             }
 
-            // SECCIÓN: HISTORIAL DE DECISIONES
             item {
                 Text(
                     text = "HISTORIAL DE DECISIONES",

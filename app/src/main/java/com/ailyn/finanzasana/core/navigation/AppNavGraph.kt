@@ -30,9 +30,8 @@ import com.ailyn.finanzasana.features.admin.dashboard.presentation.viewmodel.Das
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
-    sessionManager: SessionManager // Lo pasamos inyectado
+    sessionManager: SessionManager
 ) {
-    // Determinar el destino inicial según la sesión y el rol
     val startDest: Any = remember {
         if (sessionManager.isLoggedIn()) {
             val userId = sessionManager.getUserId()
@@ -55,7 +54,6 @@ fun AppNavGraph(
         composable<Login> {
             LoginScreen(
                 onLoginSuccess = { rol ->
-                    // IMPORTANTE: Obtenemos los datos actualizados de la sesión que guardó el UseCase
                     val userId = sessionManager.getUserId()
 
                     if (rol == 1) {
@@ -89,7 +87,7 @@ fun AppNavGraph(
                 onNavigateToDashboard = {
                     navController.navigate(Dashboard(idUsuario = sessionManager.getUserId()))
                 },
-                onBack = { /* Opcional: Cerrar app o mostrar diálogo */ },
+                onBack = { },
                 onLogout = {
                     sessionManager.clearSession()
                     navController.navigate(Login) {

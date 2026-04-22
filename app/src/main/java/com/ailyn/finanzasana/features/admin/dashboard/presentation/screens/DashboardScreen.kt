@@ -59,7 +59,6 @@ fun DashboardScreen(
                                 onSuccess = { onNavigateToUsuarios() }
                             )
                         } ?: run {
-                            // Fallback por si el contexto no es actividad
                             onNavigateToUsuarios()
                         }
                     }) {
@@ -88,7 +87,6 @@ fun DashboardScreen(
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // MÉTRICAS SUPERIORES (FILA 1)
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -108,7 +106,6 @@ fun DashboardScreen(
                     }
                 }
 
-                // CARD DEUDAS VENCIDAS (COMO EN LA IMAGEN)
                 item {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -145,7 +142,6 @@ fun DashboardScreen(
                     }
                 }
 
-                // TÍTULO ÚLTIMOS REGISTROS
                 item {
                     Text(
                         text = "ÚLTIMOS REGISTROS",
@@ -156,7 +152,6 @@ fun DashboardScreen(
                     )
                 }
 
-                // LISTA DE ABONOS
                 val abonos = uiState.data?.ultimosAbonos ?: emptyList()
                 if (abonos.isEmpty()) {
                     item { Text("No hay abonos recientes", color = Color.Gray) }

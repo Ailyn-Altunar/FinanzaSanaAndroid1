@@ -22,6 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.ailyn.finanzasana.features.home.deuda.domain.entities.Deuda
 import com.ailyn.finanzasana.features.home.deuda.presentation.viewmodel.DeudaViewModel
 
@@ -35,10 +38,15 @@ fun MisFinanzasScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val blueColor = Color(0xFF2D5AF0)
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    // REFRESCAR AL ENTRAR
-    LaunchedEffect(Unit) {
-        viewModel.cargarDatos()
+    LaunchedEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.cargarDatos()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
     }
 
     Scaffold(
@@ -46,7 +54,7 @@ fun MisFinanzasScreen(
             TopAppBar(
                 title = { Text("Mis Finanzas", color = Color.White, fontWeight = FontWeight.Bold) },
                 actions = {
-                    IconButton(onClick = { /* Settings */ }) {
+                    IconButton(onClick = {  }) {
                         Icon(Icons.Default.Settings, contentDescription = null, tint = Color.White)
                     }
                     IconButton(onClick = onLogout) {
@@ -73,7 +81,6 @@ fun MisFinanzasScreen(
                 .padding(padding)
                 .background(Color(0xFFF5F7FA))
         ) {
-            // Card de Resumen (Total Adeudado)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,7 +111,6 @@ fun MisFinanzasScreen(
                 }
             }
 
-            // Lista de Deudas
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
@@ -146,7 +152,7 @@ fun DeudaItem(
                 Text(
                     text = deuda.concepto,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Red, // Según tu imagen, el nombre es rojo
+                    color = Color.Black,
                     fontSize = 16.sp
                 )
                 Text(
@@ -164,7 +170,7 @@ fun DeudaItem(
                 )
                 Text(
                     text = deuda.fechaVencimiento,
-                    color = Color.Red, // Según tu imagen, la fecha es roja
+                    color = Color.Gray,
                     fontSize = 12.sp
                 )
             }

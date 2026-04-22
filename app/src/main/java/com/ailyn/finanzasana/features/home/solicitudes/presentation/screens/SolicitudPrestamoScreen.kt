@@ -47,7 +47,6 @@ fun SolicitudPrestamoScreen(
     val blueColor = Color(0xFF2D5AF0)
     val lightGray = Color(0xFFF5F7FA)
 
-    // Launcher para la Cámara
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
@@ -56,7 +55,6 @@ fun SolicitudPrestamoScreen(
         }
     }
 
-    // Launcher para Permisos de Cámara
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -67,7 +65,6 @@ fun SolicitudPrestamoScreen(
         }
     }
 
-    // Launcher para Permisos de Ubicación
     val locationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -133,9 +130,7 @@ fun SolicitudPrestamoScreen(
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // ---------------------------
-            // EMPRESA
-            // ---------------------------
+
             var empresaExpanded by remember { mutableStateOf(false) }
             val empresaSeleccionada = empresas.find { it.id == state.empresaId }
 
@@ -164,9 +159,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // MONTO
-            // ---------------------------
+
             CustomTextField(
                 label = "Monto",
                 value = state.montoSolicitado,
@@ -177,9 +170,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // TASA DE INTERÉS
-            // ---------------------------
+
             CustomTextField(
                 label = "Tasa (%)",
                 value = state.tasaInteres?.toString() ?: "",
@@ -189,9 +180,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // CATEGORÍA
-            // ---------------------------
+
             var categoriaExpanded by remember { mutableStateOf(false) }
             val categoriaSeleccionada = categorias.find { it.id == state.categoriaId }
 
@@ -220,9 +209,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // VENCIMIENTO (Meses)
-            // ---------------------------
+
             CustomTextField(
                 label = "Vencimiento (Meses)",
                 value = state.meses,
@@ -233,9 +220,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // MOTIVO (NUEVO)
-            // ---------------------------
+
             CustomTextField(
                 label = "Motivo del préstamo",
                 value = state.motivo,
@@ -245,9 +230,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(20.dp))
 
-            // ---------------------------
-            // EVIDENCIA
-            // ---------------------------
+
             Text(
                 "Evidencia (Opcional)",
                 modifier = Modifier.fillMaxWidth(),
@@ -283,9 +266,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ---------------------------
-            // UBICACIÓN
-            // ---------------------------
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -316,9 +297,7 @@ fun SolicitudPrestamoScreen(
 
             Spacer(Modifier.height(32.dp))
 
-            // ---------------------------
-            // BOTÓN GUARDAR
-            // ---------------------------
+
             Button(
                 onClick = { viewModel.enviarSolicitud(idUsuario) },
                 modifier = Modifier
@@ -387,7 +366,6 @@ fun CustomDropdownField(
                 focusedBorderColor = Color(0xFF2D5AF0)
             )
         )
-        // Capa invisible para detectar el clic en todo el campo
         Box(
             modifier = Modifier
                 .matchParentSize()

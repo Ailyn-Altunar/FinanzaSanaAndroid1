@@ -45,7 +45,6 @@ fun DetalleDeudaScreen(
         viewModel.setDeuda(deuda)
     }
 
-    // Usar el estado del ViewModel si existe, si no, los datos iniciales
     val currentDeuda = state.deuda ?: deuda
 
     Scaffold(
@@ -69,7 +68,6 @@ fun DetalleDeudaScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Card Principal de Información
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -91,7 +89,6 @@ fun DetalleDeudaScreen(
                     HorizontalDivider(color = Color(0xFFF0F0F0))
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Lógica de Fecha Vencida
                     val esVencida = try {
                         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         val fechaVenc = sdf.parse(currentDeuda.fechaVencimiento)
@@ -111,7 +108,6 @@ fun DetalleDeudaScreen(
                         else "No disponible"
                     DetailRow("Ubicación:", ubicacionText)
 
-                    // Mostrar Imagen si existe
                     currentDeuda.imagenBase64?.let { base64 ->
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Evidencia:", color = Color.Gray, fontSize = 14.sp)
@@ -151,7 +147,6 @@ fun DetalleDeudaScreen(
                 }
             }
 
-            // Card de Progreso de Pago
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -183,7 +178,6 @@ fun DetalleDeudaScreen(
                 }
             }
 
-            // Card de Historial de Abonos
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -224,7 +218,6 @@ fun DetalleDeudaScreen(
                 }
             }
 
-            // Botón Registrar Abono
             Button(
                 onClick = { showAbonoDialog = true },
                 modifier = Modifier
@@ -239,7 +232,6 @@ fun DetalleDeudaScreen(
                 Text("Registrar Abono", fontSize = 18.sp)
             }
 
-            // Botón Liquidar Deuda
             var showLiquidarConfirm by remember { mutableStateOf(false) }
             
             OutlinedButton(

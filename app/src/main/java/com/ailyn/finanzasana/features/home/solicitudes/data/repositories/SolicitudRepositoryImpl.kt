@@ -1,5 +1,7 @@
 package com.ailyn.finanzasana.features.home.solicitudes.data.repositories
 
+import com.ailyn.finanzasana.core.database.dao.SolicitudDao
+import com.ailyn.finanzasana.core.database.entities.SolicitudEntity
 import com.ailyn.finanzasana.core.session.SessionManager
 import com.ailyn.finanzasana.features.home.solicitudes.data.datasource.api.SolicitudApi
 import com.ailyn.finanzasana.features.home.solicitudes.data.models.CrearSolicitudRequestDto
@@ -10,6 +12,7 @@ import javax.inject.Inject
 
 class SolicitudRepositoryImpl @Inject constructor(
     private val api: SolicitudApi,
+    private val dao: SolicitudDao,
     private val sessionManager: SessionManager
 ) : SolicitudRepository {
 
@@ -29,10 +32,31 @@ class SolicitudRepositoryImpl @Inject constructor(
                 longitud = solicitud.longitud
             )
 
-            api.crearSolicitud(
+            val response = api.crearSolicitud(
                 token = "Bearer $token",
                 request = request
             )
+
+            response?.let {
+                try {
+                    dao.insertSolicitudes(listOf(
+                        SolicitudEntity(
+                            id = it.id,
+                            nombreUsuario = "Mi Solicitud", 
+                            nombreEmpresa = "Empresa",
+                            montoSolicitado = it.montoSolicitado,
+                            meses = it.meses,
+                            motivo = it.motivo,
+                            tasaInteres = it.tasaInteres,
+                            estado = 1,
+                            fechaSolicitud = it.fechaSolicitud,
+                            categoriaId = it.idCategoria
+                        )
+                    ))
+                } catch (e: Exception) {  }
+            }
+
+            return response
         } catch (e: Exception) {
             null
         }

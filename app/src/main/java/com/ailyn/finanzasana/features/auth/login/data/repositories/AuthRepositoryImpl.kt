@@ -19,7 +19,6 @@ class AuthRepositoryImpl @Inject constructor(
         return try {
             val login = api.login(LoginRequest(email, contrasena)).toDomain()
 
-            // Guardar sesión
             saveSession(login)
 
             login

@@ -35,7 +35,6 @@ fun LoginScreen(
     val state by viewModel.uiState.collectAsState()
     var passwordVisible by remember { mutableStateOf(false) }
 
-    // Navegación cuando loginSuccess cambia
     LaunchedEffect(state.loginSuccess) {
         state.rol?.let { rol ->
             if (state.loginSuccess) {
@@ -45,7 +44,6 @@ fun LoginScreen(
         }
     }
 
-    // Limpieza de error general
     state.errorMessage?.let {
         LaunchedEffect(it) { viewModel.clearError() }
     }
@@ -59,7 +57,6 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
 
-        // LOGO
         Surface(
             modifier = Modifier.size(80.dp),
             shape = CircleShape,
@@ -73,7 +70,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // TÍTULO
         Text(
             "FinanzaSana",
             fontSize = 32.sp,
@@ -89,7 +85,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // EMAIL
         OutlinedTextField(
             value = state.email,
             onValueChange = viewModel::onEmailChange,
@@ -117,7 +112,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // PASSWORD
         OutlinedTextField(
             value = state.contrasena,
             onValueChange = viewModel::onContrasenaChange,
@@ -154,7 +148,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // ERROR GENERAL
         state.errorMessage?.let {
             Text(
                 text = it,
@@ -167,7 +160,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // BOTÓN LOGIN
         Button(
             onClick = { viewModel.login() },
             modifier = Modifier
@@ -190,7 +182,6 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // LINK REGISTRO
         TextButton(
             onClick = onNavigateToRegister,
             enabled = !state.isLoading

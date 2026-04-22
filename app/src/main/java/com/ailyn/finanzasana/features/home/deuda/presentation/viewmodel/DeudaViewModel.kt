@@ -30,7 +30,6 @@ class DeudaViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             try {
-                // Hacemos ambas peticiones
                 val deudas = getDeudasUseCase()
                 val resumen = getResumenDeudaUseCase()
                 

@@ -30,16 +30,12 @@ class SolicitudPrestamoViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(SolicitudPrestamoUiState())
     val uiState: StateFlow<SolicitudPrestamoUiState> = _uiState.asStateFlow()
 
-    // CACHÉS (NO van en UiState)
     private var empresasCache: List<Empresa> = emptyList()
     private var categoriasCache: List<Categoria> = emptyList()
 
-    // ---------------------------
-    // SETEO DE LISTAS
-    // ---------------------------
+
     fun setEmpresas(empresas: List<Empresa>) {
         empresasCache = empresas
-        // Si ya hay un ID seleccionado, forzamos la actualización de la tasa desde el nuevo caché
         _uiState.value.empresaId?.let { id ->
             onEmpresaSeleccionada(id)
         }
@@ -49,9 +45,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         categoriasCache = categorias
     }
 
-    // ---------------------------
-    // SELECCIÓN DE EMPRESA
-    // ---------------------------
+
     fun onEmpresaSeleccionada(id: Int) {
         val empresa = empresasCache.find { it.id == id } ?: return
         _uiState.update {
@@ -63,9 +57,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         }
     }
 
-    // ---------------------------
-    // SELECCIÓN DE CATEGORÍA
-    // ---------------------------
+
     fun onCategoriaSeleccionada(id: Int) {
         _uiState.update {
             it.copy(
@@ -75,9 +67,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         }
     }
 
-    // ---------------------------
-    // FOTO (Hardware)
-    // ---------------------------
+
     fun intentarTomarFoto(
         onAbrirCamara: () -> Unit,
         onPedirPermiso: () -> Unit
@@ -102,9 +92,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         _uiState.update { it.copy(errorMessage = "Permiso de $permission denegado") }
     }
 
-    // ---------------------------
-    // UBICACIÓN
-    // ---------------------------
+
     fun obtenerUbicacion() {
         viewModelScope.launch {
             val ub = locationManager.obtenerUbicacion()
@@ -123,9 +111,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         }
     }
 
-    // ---------------------------
-    // CAMPOS
-    // ---------------------------
+
     fun onMontoChange(value: String) =
         _uiState.update { it.copy(montoSolicitado = value, errorMonto = null) }
 
@@ -135,9 +121,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
     fun onMotivoChange(value: String) =
         _uiState.update { it.copy(motivo = value, errorMotivo = null) }
 
-    // ---------------------------
-    // VALIDACIONES
-    // ---------------------------
+
     private fun validar(): Boolean {
         val s = _uiState.value
         var ok = true
@@ -170,9 +154,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
         return ok
     }
 
-    // ---------------------------
-    // ENVIAR SOLICITUD
-    // ---------------------------
+
     fun enviarSolicitud(idUsuario: Int) {
         if (!validar()) return
 
@@ -194,7 +176,7 @@ class SolicitudPrestamoViewModel @Inject constructor(
                 idEmpresa = s.empresaId!!,
                 montoSolicitado = monto,
                 meses = mesesInt,
-                motivo = s.motivo, // Usamos el motivo ingresado por el usuario
+                motivo = s.motivo,
                 tasaInteres = s.tasaInteres!!,
                 idCategoria = s.categoriaId!!,
                 imagenBase64 = s.imagenBase64,

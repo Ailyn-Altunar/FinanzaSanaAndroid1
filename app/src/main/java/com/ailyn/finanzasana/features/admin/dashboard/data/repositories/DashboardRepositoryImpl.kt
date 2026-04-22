@@ -17,14 +17,12 @@ class DashboardRepositoryImpl @Inject constructor(
     override suspend fun getDashboardData(): DashboardData = coroutineScope {
         val token = "Bearer ${sessionManager.getToken() ?: ""}"
         
-        // Ejecutamos ambas peticiones en paralelo para mayor eficiencia
         val metricsDeferred = async { api.getMetrics(token) }
         val actividadDeferred = async { api.getActividad(token) }
         
         val metrics = metricsDeferred.await()
         val actividad = actividadDeferred.await()
         
-        // Combinamos ambas respuestas en nuestra entidad de dominio
         DashboardData(
             usuariosTotales = metrics.usuariosTotales,
             montoGlobal = metrics.montoGlobal,

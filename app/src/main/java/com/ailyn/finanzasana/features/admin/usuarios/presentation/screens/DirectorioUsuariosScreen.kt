@@ -50,7 +50,6 @@ fun DirectorioUsuariosScreen(
                 .background(Color(0xFFF8F9FA))
                 .padding(16.dp)
         ) {
-            // BARRA DE BÚSQUEDA
             OutlinedTextField(
                 value = uiState.searchQuery,
                 onValueChange = { viewModel.onSearchQueryChange(it) },

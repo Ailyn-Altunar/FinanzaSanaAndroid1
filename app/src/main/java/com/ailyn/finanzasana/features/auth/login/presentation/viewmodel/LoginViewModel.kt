@@ -20,9 +20,7 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    // -----------------------------
-    //  CAMBIOS DE CAMPOS
-    // -----------------------------
+
     fun onEmailChange(value: String) {
         _uiState.update { it.copy(email = value, errorEmail = null, errorMessage = null) }
     }
@@ -31,14 +29,11 @@ class LoginViewModel @Inject constructor(
         _uiState.update { it.copy(contrasena = value, errorContrasena = null, errorMessage = null) }
     }
 
-    // -----------------------------
-    //  LOGIN
-    // -----------------------------
+
     fun login() {
         val state = _uiState.value
         var isValid = true
 
-        // Validación por campo
         if (state.email.isBlank()) {
             _uiState.update { it.copy(errorEmail = "Obligatorio") }
             isValid = false
@@ -75,9 +70,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    // -----------------------------
-    //  LIMPIEZA DE ESTADOS
-    // -----------------------------
+
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }
     }

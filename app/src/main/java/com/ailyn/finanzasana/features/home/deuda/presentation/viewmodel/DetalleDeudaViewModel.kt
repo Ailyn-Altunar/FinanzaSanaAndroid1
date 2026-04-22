@@ -39,7 +39,6 @@ class DetalleDeudaViewModel @Inject constructor(
                     state.copy(deuda = d.copy(abonos = abonos))
                 }
             } catch (e: Exception) {
-                // Error silencioso al cargar historial
             }
         }
     }
@@ -81,7 +80,6 @@ class DetalleDeudaViewModel @Inject constructor(
         val montoALiquidar = currentDeuda.saldoActual
         
         viewModelScope.launch {
-            // 1. ACTUALIZACIÓN LOCAL INMEDIATA (Optimista)
             _uiState.update { state ->
                 val d = state.deuda ?: return@update state
                 val abonoLiquidacion = com.ailyn.finanzasana.features.home.deuda.domain.entities.Abono(
@@ -100,13 +98,10 @@ class DetalleDeudaViewModel @Inject constructor(
             }
 
             try {
-                // 2. LLAMADA A LA API EN SEGUNDO PLANO
                 liquidarDeudaUseCase(currentDeuda.id ?: 0)
                 
-                // 3. REFRESCAR DATOS REALES
                 currentDeuda.id?.let { cargarAbonos(it) }
             } catch (e: Exception) {
-                // Si falla, revertimos o informamos
                 _uiState.update { it.copy(errorMessage = "Error al liquidar en servidor: ${e.message}") }
             }
         }

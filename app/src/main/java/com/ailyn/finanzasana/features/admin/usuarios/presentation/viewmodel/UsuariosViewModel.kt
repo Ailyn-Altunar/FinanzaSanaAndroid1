@@ -54,7 +54,7 @@ class UsuariosViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 eliminarUsuarioUseCase(id)
-                cargarUsuarios() // Recargar lista
+                cargarUsuarios()
             } catch (e: Exception) {
                 _uiState.update { it.copy(errorMessage = "Error al eliminar usuario") }
             }

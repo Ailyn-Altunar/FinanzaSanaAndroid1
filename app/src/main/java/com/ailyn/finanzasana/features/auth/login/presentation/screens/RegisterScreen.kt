@@ -63,7 +63,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // NOMBRE
         OutlinedTextField(
             value = state.nombre,
             onValueChange = viewModel::onNombreChange,
@@ -82,7 +81,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // EMAIL
         OutlinedTextField(
             value = state.email,
             onValueChange = viewModel::onEmailChange,
@@ -101,7 +99,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // TELÉFONO
         OutlinedTextField(
             value = state.telefono,
             onValueChange = viewModel::onTelefonoChange,
@@ -120,7 +117,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // CONTRASEÑA
         OutlinedTextField(
             value = state.contrasena,
             onValueChange = viewModel::onContrasenaChange,
@@ -140,7 +136,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // ERROR GENERAL
         state.errorMessage?.let {
             Text(
                 text = it,
@@ -153,7 +148,6 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // BOTÓN REGISTRARSE
         Button(
             onClick = { viewModel.registrar() },
             modifier = Modifier.fillMaxWidth().height(56.dp),

@@ -4,9 +4,7 @@ import com.ailyn.finanzasana.features.admin.dashboard.data.models.MetricsRespons
 import com.ailyn.finanzasana.features.admin.dashboard.data.models.RegistroAbonoDto
 import com.ailyn.finanzasana.features.admin.dashboard.domain.entities.RegistroAbonoAdmin
 
-// Ya no necesitamos un toDomain para DashboardData porque el Repositorio 
-// combina las dos respuestas manualmente. 
-// Solo necesitamos el mapper para los items de la lista de abonos.
+
 
 fun RegistroAbonoDto.toDomain() = RegistroAbonoAdmin(
     nombreUsuario = nombreUsuario,
